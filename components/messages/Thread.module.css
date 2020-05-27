@@ -1,0 +1,16 @@
+.button {
+	width: 100%;
+}
+
+.container {
+	padding: 20px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.profile {
+	background: red;
+	width: 80px;
+	height: 80px;
+}

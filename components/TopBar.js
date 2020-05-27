@@ -25,7 +25,7 @@ export default function TopBar() {
 				<Typography variant="h6" className={styles.title}>
 					Messenger
 				</Typography>
-				<Button color="inherit">Login</Button>
+				{/* <Button color="inherit">Login</Button> */}
 			</Toolbar>
 		</AppBar>
 	);

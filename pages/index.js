@@ -20,7 +20,7 @@ export default function Index() {
 			.auth()
 			.signInWithPopup(provider.current)
 			.then((res) => {
-				Router.push("messages");
+				Router.push("/messages");
 			})
 			.catch((err) => {
 				console.log(err);

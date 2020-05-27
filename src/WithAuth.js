@@ -25,8 +25,6 @@ function withAuth(Component) {
 				if (this.state.loading) {
 					this.setState({ loading: false });
 				}
-
-				console.log(user);
 			});
 		}
 
