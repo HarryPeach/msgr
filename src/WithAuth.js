@@ -1,58 +1,72 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+
 import firebase from "../lib/firebase";
 
 export const AuthContext = React.createContext({});
 
 function withAuth(Component) {
-	return class extends React.Component {
-		constructor(props) {
-			super(props);
-			this.state = {
-				loading: true,
-				user: null,
-			};
-		}
+	return (props) => {
+		const router = useRouter();
+		const [loading, setLoading] = React.useState(true);
+		const [user, setUser] = React.useState();
 
-		componentDidMount() {
-			firebase.auth().onAuthStateChanged((user) => {
-				if (user) {
-					this.setState({ user });
+		useEffect(() => {
+			firebase.auth().onAuthStateChanged((newuser) => {
+				if (newuser) {
+					setUser(newuser);
+					const userRef = firebase
+						.firestore()
+						.collection("users")
+						.doc(newuser.uid);
+					userRef.get().then((userInfo) => {
+						if (
+							userInfo.data()?.name === undefined &&
+							router.pathname !== "/onboard"
+						) {
+							router.push("/onboard");
+						}
+					});
 				} else {
-					this.setState({ user: null });
+					setUser(null);
 				}
 
-				if (this.state.loading) {
-					this.setState({ loading: false });
-				}
+				setLoading(false);
 			});
-		}
+		}, []);
 
-		render() {
-			if (this.state.loading) {
-				return (
-					<>
-						<p>Waiting for authentication provider...</p>
-					</>
-				);
-			}
-
-			if (!this.state.user) {
-				return (
-					<>
-						<Link href="/">
-							<a>Please login to access this page</a>
-						</Link>
-					</>
-				);
-			}
-
+		if (loading) {
 			return (
-				<AuthContext.Provider value={this.state.user}>
-					<Component {...this.props} />
-				</AuthContext.Provider>
+				<>
+					<p>Waiting for authentication provider...</p>
+				</>
 			);
 		}
+
+		if (!user) {
+			return (
+				<>
+					<Link href="/">
+						<a>Please login to access this page</a>
+					</Link>
+				</>
+			);
+		}
+
+		return (
+			<AuthContext.Provider value={user}>
+				<Component {...props} />
+			</AuthContext.Provider>
+		);
+	};
+}
+
+export async function getStaticProps(context) {
+	return {
+		props: {
+			pathname: "test",
+		},
 	};
 }
 
