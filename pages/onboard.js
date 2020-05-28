@@ -11,6 +11,8 @@ import {
 	TextField,
 } from "@material-ui/core";
 
+import styles from "./onboard.module.css";
+
 function Onboard() {
 	return (
 		<>
@@ -31,7 +33,12 @@ function Onboard() {
 							</form>
 						</CardContent>
 						<CardActions>
-							<Button color="secondary">Submit</Button>
+							<Button
+								className={styles.submitButton}
+								color="secondary"
+							>
+								Submit
+							</Button>
 						</CardActions>
 					</Card>
 				</Box>
