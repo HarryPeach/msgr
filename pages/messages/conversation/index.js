@@ -7,6 +7,8 @@ import TopBar from "../../../components/TopBar";
 import TextBox from "../../../components/messages/TextBox";
 import Message from "../../../components/messages/Message";
 
+import styles from "./index.module.css";
+
 function Conversation(props) {
 	const router = useRouter();
 	const authContext = React.useContext(AuthContext);
@@ -16,32 +18,13 @@ function Conversation(props) {
 	const [textbox, setTextbox] = React.useState("");
 
 	useEffect(() => {
-		// firebase
-		// 	.firestore()
-		// 	.collection("conversations")
-		// 	.doc(c)
-		// 	.collection("messages")
-		// 	.orderBy("timestamp")
-		// 	.get()
-		// 	.then((doc) => {
-		// 		setMessages(
-		// 			doc.docs.map((x) => {
-		// 				return (
-		// 					<Message
-		// 						key={x.id}
-		// 						text={x.data().text}
-		// 						right={x.data().sender === authContext.uid}
-		// 					/>
-		// 				);
-		// 			})
-		// 		);
-		// 	});
 		firebase
 			.firestore()
 			.collection("conversations")
 			.doc(c)
 			.collection("messages")
 			.orderBy("timestamp")
+			.limit(100)
 			.onSnapshot((doc) => {
 				setMessages(
 					doc.docs.map((x) => {
@@ -72,7 +55,7 @@ function Conversation(props) {
 	};
 
 	return (
-		<>
+		<div className={styles.root}>
 			<TopBar />
 			{messages}
 			<TextBox
@@ -80,7 +63,7 @@ function Conversation(props) {
 				textbox={textbox}
 				setTextbox={setTextbox}
 			/>
-		</>
+		</div>
 	);
 }
 

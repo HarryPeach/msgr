@@ -12,7 +12,7 @@ import styles from "./TopBar.module.css";
 
 export default function TopBar() {
 	return (
-		<AppBar position="static">
+		<AppBar position="sticky">
 			<Toolbar>
 				<IconButton
 					edge="start"
