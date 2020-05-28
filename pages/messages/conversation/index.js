@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { animateScroll as scroll } from "react-scroll";
+import { Container } from "@material-ui/core";
 
 import firebase from "../../../lib/firebase";
 import withAuth, { AuthContext } from "../../../src/WithAuth";
@@ -35,14 +36,22 @@ function Conversation(props) {
 							<Message
 								key={x.id}
 								text={x.data().text}
+								timestamp={new Date(
+									parseInt(
+										x.data().timestamp.seconds +
+											"" +
+											x
+												.data()
+												.timestamp.nanoseconds.toString()
+												.replace(/0+$/, "")
+									)
+								).toUTCString()}
 								right={x.data().sender === authContext.uid}
 							/>
 						);
 					})
 				);
-				// bottomAnchor.scrollIntoView({ behavior: "smooth" });
 				scroll.scrollToBottom();
-				// scrollToBottom();
 			});
 	}, []);
 
@@ -58,15 +67,14 @@ function Conversation(props) {
 				timestamp: firebase.firestore.Timestamp.now(),
 			});
 		setTextbox("");
-		// bottomAnchor.scrollIntoView({behavior: "smooth"});
 	};
 
 	return (
 		<div className={styles.root}>
 			<TopBar />
-			{messages}
+			<Container maxWidth="md">{messages}</Container>
 			<TextBox
-				onClick={sendMessage}
+				sendAction={sendMessage}
 				textbox={textbox}
 				setTextbox={setTextbox}
 			/>

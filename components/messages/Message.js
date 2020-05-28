@@ -9,7 +9,9 @@ export default function Message(props) {
 			<Card>
 				<CardContent className={clsx(props.right && styles.rightAlign)}>
 					<Typography variant="body1">{props.text}</Typography>
-					<Typography variant="overline">12:00am</Typography>
+					<Typography variant="overline" color="textSecondary">
+						{props.timestamp}
+					</Typography>
 				</CardContent>
 			</Card>
 		</>

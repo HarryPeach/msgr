@@ -5,7 +5,13 @@ import styles from "./TextBox.module.css";
 
 export default function TextBox(props) {
 	const clickHandler = () => {
-		props.onClick();
+		props.sendAction();
+	};
+
+	const keyPressHandler = (e) => {
+		if (e.key === "Enter") {
+			props.sendAction();
+		}
 	};
 
 	return (
@@ -16,6 +22,7 @@ export default function TextBox(props) {
 					className={styles.input}
 					value={props.textbox}
 					onChange={(e) => props.setTextbox(e.target.value)}
+					onKeyPress={(e) => keyPressHandler(e)}
 				/>
 				<Divider orientation="vertical" className={styles.divider} />
 				<IconButton type="submit" onClick={clickHandler}>
