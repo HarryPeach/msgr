@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { animateScroll as scroll } from "react-scroll";
 
 import firebase from "../../../lib/firebase";
 import withAuth, { AuthContext } from "../../../src/WithAuth";
@@ -16,6 +17,8 @@ function Conversation(props) {
 
 	const [messages, setMessages] = React.useState();
 	const [textbox, setTextbox] = React.useState("");
+
+	const bottomAnchor = React.useRef();
 
 	useEffect(() => {
 		firebase
@@ -37,6 +40,9 @@ function Conversation(props) {
 						);
 					})
 				);
+				// bottomAnchor.scrollIntoView({ behavior: "smooth" });
+				scroll.scrollToBottom();
+				// scrollToBottom();
 			});
 	}, []);
 
@@ -52,6 +58,7 @@ function Conversation(props) {
 				timestamp: firebase.firestore.Timestamp.now(),
 			});
 		setTextbox("");
+		// bottomAnchor.scrollIntoView({behavior: "smooth"});
 	};
 
 	return (
@@ -63,6 +70,7 @@ function Conversation(props) {
 				textbox={textbox}
 				setTextbox={setTextbox}
 			/>
+			<div ref={bottomAnchor} style={{ float: "left", clear: "both" }} />
 		</div>
 	);
 }
