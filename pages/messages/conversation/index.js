@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import firebase from "../../../lib/firebase";
 import withAuth, { AuthContext } from "../../../src/WithAuth";
 import TopBar from "../../../components/TopBar";
+import TextBox from "../../../components/messages/TextBox";
 import Message from "../../../components/messages/Message";
 
 function Conversation(props) {
@@ -12,6 +13,7 @@ function Conversation(props) {
 	const { c } = router.query;
 
 	const [messages, setMessages] = React.useState();
+	const [textbox, setTextbox] = React.useState("");
 
 	useEffect(() => {
 		firebase
@@ -23,7 +25,6 @@ function Conversation(props) {
 			.then((doc) => {
 				setMessages(
 					doc.docs.map((x) => {
-						console.log(x);
 						return (
 							<Message
 								key={x.id}
@@ -36,12 +37,21 @@ function Conversation(props) {
 			});
 	}, []);
 
+	const sendMessage = () => {
+		console.log(textbox);
+		setTextbox("");
+	};
+
 	return (
 		<>
 			<TopBar />
 			{messages}
-			{console.log(messages)}
 			<p>Messages from {c}</p>
+			<TextBox
+				onClick={sendMessage}
+				textbox={textbox}
+				setTextbox={setTextbox}
+			/>
 		</>
 	);
 }

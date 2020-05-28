@@ -8,7 +8,7 @@ export default function Message(props) {
 		<>
 			<Card>
 				<CardContent className={clsx(props.right && styles.rightAlign)}>
-					<Typography variant="body">{props.text}</Typography>
+					<Typography variant="body1">{props.text}</Typography>
 					<br />
 					<Typography variant="overline">12:00am</Typography>
 				</CardContent>
