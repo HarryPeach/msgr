@@ -16,13 +16,33 @@ function Conversation(props) {
 	const [textbox, setTextbox] = React.useState("");
 
 	useEffect(() => {
+		// firebase
+		// 	.firestore()
+		// 	.collection("conversations")
+		// 	.doc(c)
+		// 	.collection("messages")
+		// 	.orderBy("timestamp")
+		// 	.get()
+		// 	.then((doc) => {
+		// 		setMessages(
+		// 			doc.docs.map((x) => {
+		// 				return (
+		// 					<Message
+		// 						key={x.id}
+		// 						text={x.data().text}
+		// 						right={x.data().sender === authContext.uid}
+		// 					/>
+		// 				);
+		// 			})
+		// 		);
+		// 	});
 		firebase
 			.firestore()
 			.collection("conversations")
 			.doc(c)
 			.collection("messages")
-			.get()
-			.then((doc) => {
+			.orderBy("timestamp")
+			.onSnapshot((doc) => {
 				setMessages(
 					doc.docs.map((x) => {
 						return (
@@ -38,7 +58,16 @@ function Conversation(props) {
 	}, []);
 
 	const sendMessage = () => {
-		console.log(textbox);
+		firebase
+			.firestore()
+			.collection("conversations")
+			.doc(c)
+			.collection("messages")
+			.add({
+				sender: authContext.uid,
+				text: textbox,
+				timestamp: firebase.firestore.Timestamp.now(),
+			});
 		setTextbox("");
 	};
 
@@ -46,7 +75,6 @@ function Conversation(props) {
 		<>
 			<TopBar />
 			{messages}
-			<p>Messages from {c}</p>
 			<TextBox
 				onClick={sendMessage}
 				textbox={textbox}
