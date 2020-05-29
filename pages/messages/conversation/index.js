@@ -36,16 +36,11 @@ function Conversation(props) {
 							<Message
 								key={x.id}
 								text={x.data().text}
-								timestamp={new Date(
-									parseInt(
-										x.data().timestamp.seconds +
-											"" +
-											x
-												.data()
-												.timestamp.nanoseconds.toString()
-												.replace(/0+$/, "")
-									)
-								).toUTCString()}
+								timestamp={
+									x.data().timestamp.seconds +
+									"" +
+									x.data().timestamp.nanoseconds
+								}
 								right={x.data().sender === authContext.uid}
 							/>
 						);
