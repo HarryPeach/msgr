@@ -29,6 +29,7 @@ it("Does not call the onSubmit function when name is too long", () => {
 	const clickFn = jest.fn();
 	const wrapper = mount(<OnboardCard onSubmit={clickFn} />);
 	const button = wrapper.find(Button);
+	jest.spyOn(window, "alert").mockImplementation(() => {});
 
 	// Put a value that is longer than the max into the textbox
 	const nameTextBox = wrapper.find(TextField);
@@ -40,12 +41,14 @@ it("Does not call the onSubmit function when name is too long", () => {
 
 	button.simulate("click");
 	expect(clickFn.mock.calls.length).toBe(0);
+	expect(window.alert).toBeCalledWith(expect.stringContaining("too long"));
 });
 
 it("Does not call the onSubmit function when name contains invalid characters", () => {
 	const clickFn = jest.fn();
 	const wrapper = mount(<OnboardCard onSubmit={clickFn} />);
 	const button = wrapper.find(Button);
+	jest.spyOn(window, "alert").mockImplementation(() => {});
 
 	// Put a name with an invalid character
 	const nameTextBox = wrapper.find(TextField);
@@ -57,6 +60,7 @@ it("Does not call the onSubmit function when name contains invalid characters", 
 
 	button.simulate("click");
 	expect(clickFn.mock.calls.length).toBe(0);
+	expect(window.alert).toBeCalledWith(expect.stringContaining("invalid"));
 
 	// Put a value that is valid with spaces
 	nameTextBox.props().onChange({

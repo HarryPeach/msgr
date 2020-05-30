@@ -14,8 +14,16 @@ export default function OnboardCard(props) {
 	const [name, setName] = React.useState("");
 
 	const handleSubmit = () => {
-		if (name.length >= 64) return;
-		if (!name.match("^[a-zA-Z0-9 ]*$")) return;
+		if (name.length >= 64) {
+			alert("The provided name is too long, please try a shorter name.");
+			return;
+		}
+		if (!name.match("^[a-zA-Z0-9 ]*$")) {
+			alert(
+				"The name provided is invalid, please use only alphanumeric characters and spaces."
+			);
+			return;
+		}
 		props.onSubmit({
 			name: name,
 		});
