@@ -1,10 +1,5 @@
-import {
-	AppBar,
-	Toolbar,
-	IconButton,
-	Typography,
-	Button,
-} from "@material-ui/core";
+import * as Constants from "../src/constants";
+import { AppBar, Toolbar, IconButton, Typography } from "@material-ui/core";
 
 import { Menu, ArrowBack } from "@material-ui/icons";
 
@@ -18,7 +13,7 @@ export default function TopBar(props) {
 					{props.back ? <ArrowBack /> : <Menu />}
 				</IconButton>
 				<Typography variant="h6" className={styles.title}>
-					{props.title ? props.title : "Etta"}
+					{props.title ? props.title : Constants.APP_NAME}
 				</Typography>
 			</Toolbar>
 		</AppBar>

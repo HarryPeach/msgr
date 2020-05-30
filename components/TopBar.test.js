@@ -2,6 +2,7 @@ import React from "react";
 import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
+import * as Constants from "../src/constants";
 import TopBar from "./TopBar";
 import { IconButton, Typography } from "@material-ui/core";
 import { Menu, ArrowBack } from "@material-ui/icons";
@@ -29,7 +30,7 @@ it("Shows the menu icon when back prop not provided", () => {
 it("Shows the app name when a title is not provided", () => {
 	const blankWrapper = shallow(<TopBar />);
 	const blankTitle = blankWrapper.find(Typography);
-	expect(blankTitle.text()).toBe("Etta");
+	expect(blankTitle.text()).toBe(Constants.APP_NAME);
 
 	const namedWrapper = shallow(<TopBar title={"TestTitle"} />);
 	const namedTitle = namedWrapper.find(Typography);

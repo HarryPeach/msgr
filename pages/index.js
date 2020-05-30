@@ -3,9 +3,9 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import TopBar from "../components/TopBar";
+import * as Constants from "../src/constants";
 
 import Router from "next/router";
-
 import firebase from "../lib/firebase";
 
 export default function Index() {
@@ -33,7 +33,7 @@ export default function Index() {
 			<Container maxWidth="sm">
 				<Box my={4} textAlign="center">
 					<Typography variant="h1" gutterBottom>
-						Etta
+						{Constants.APP_NAME}
 					</Typography>
 					<Typography variant="h2">
 						An open source messenger
