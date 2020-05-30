@@ -1,8 +1,8 @@
 import React from "react";
 import Enzyme, { shallow, mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import { act } from "react-dom/test-utils";
 
+import { act } from "react-dom/test-utils";
 import OnboardCard from "./OnboardCard";
 import { Button, TextField } from "@material-ui/core";
 
@@ -33,10 +33,12 @@ it("Does not call the onSubmit function when name is too long", () => {
 
 	// Put a value that is longer than the max into the textbox
 	const nameTextBox = wrapper.find(TextField);
-	nameTextBox.props().onChange({
-		target: {
-			value: "#".repeat(64),
-		},
+	act(() => {
+		nameTextBox.props().onChange({
+			target: {
+				value: "#".repeat(64),
+			},
+		});
 	});
 
 	button.simulate("click");
@@ -52,10 +54,12 @@ it("Does not call the onSubmit function when name contains invalid characters", 
 
 	// Put a name with an invalid character
 	const nameTextBox = wrapper.find(TextField);
-	nameTextBox.props().onChange({
-		target: {
-			value: "This is a name with an invalid char: !",
-		},
+	act(() => {
+		nameTextBox.props().onChange({
+			target: {
+				value: "This is a name with an invalid char: !",
+			},
+		});
 	});
 
 	button.simulate("click");
