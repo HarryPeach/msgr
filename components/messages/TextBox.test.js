@@ -49,6 +49,11 @@ it("Correctly sets and changes the textbox value", () => {
 
 	expect(input.get(0).props.value).toBe("testVal");
 
-	input.simulate("change", { target: { value: "Hello" } });
+	input.props().onChange({
+		target: {
+			value: "Hello",
+		},
+	});
+
 	expect(setFunc.mock.calls[0][0]).toBe("Hello");
 });

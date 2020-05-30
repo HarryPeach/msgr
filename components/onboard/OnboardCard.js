@@ -14,6 +14,8 @@ export default function OnboardCard(props) {
 	const [name, setName] = React.useState("");
 
 	const handleSubmit = () => {
+		if (name.length >= 64) return;
+		if (!name.match("^[a-zA-Z0-9 ]*$")) return;
 		props.onSubmit({
 			name: name,
 		});
@@ -30,7 +32,9 @@ export default function OnboardCard(props) {
 						<TextField
 							className={styles.nameTextField}
 							value={name}
-							onChange={(e) => setName(e.target.value)}
+							onChange={(e) => {
+								setName(e.target.value);
+							}}
 							label="Your name"
 						/>
 					</form>
