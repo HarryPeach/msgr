@@ -10,14 +10,16 @@ Enzyme.configure({ adapter: new Adapter() });
 
 it("Calls the onSubmit function with the fields values", () => {
 	const clickFn = jest.fn();
-	const wrapper = shallow(<OnboardCard onSubmit={clickFn} />);
+	const wrapper = mount(<OnboardCard onSubmit={clickFn} />);
 	const button = wrapper.find(Button);
 
 	const nameTextBox = wrapper.find(TextField);
-	nameTextBox.props().onChange({
-		target: {
-			value: "Hello",
-		},
+	act(() => {
+		nameTextBox.props().onChange({
+			target: {
+				value: "Hello",
+			},
+		});
 	});
 
 	button.simulate("click");
@@ -67,10 +69,12 @@ it("Does not call the onSubmit function when name contains invalid characters", 
 	expect(window.alert).toBeCalledWith(expect.stringContaining("invalid"));
 
 	// Put a value that is valid with spaces
-	nameTextBox.props().onChange({
-		target: {
-			value: "I have spaces and I am valid",
-		},
+	act(() => {
+		nameTextBox.props().onChange({
+			target: {
+				value: "I have spaces and I am valid",
+			},
+		});
 	});
 
 	button.simulate("click");

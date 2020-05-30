@@ -6,26 +6,20 @@ import {
 	Button,
 } from "@material-ui/core";
 
-import { Menu } from "@material-ui/icons";
+import { Menu, ArrowBack } from "@material-ui/icons";
 
 import styles from "./TopBar.module.css";
 
-export default function TopBar() {
+export default function TopBar(props) {
 	return (
 		<AppBar position="sticky">
 			<Toolbar>
-				<IconButton
-					edge="start"
-					// className={classes.menuButton}
-					color="inherit"
-					aria-label="menu"
-				>
-					<Menu />
+				<IconButton edge="start" color="inherit" aria-label="menu">
+					{props.back ? <ArrowBack /> : <Menu />}
 				</IconButton>
 				<Typography variant="h6" className={styles.title}>
-					Messenger
+					{props.title ? props.title : "Etta"}
 				</Typography>
-				{/* <Button color="inherit">Login</Button> */}
 			</Toolbar>
 		</AppBar>
 	);

@@ -31,9 +31,12 @@ export default function Index() {
 		<>
 			<TopBar />
 			<Container maxWidth="sm">
-				<Box my={4}>
-					<Typography variant="h4" component="h1" gutterBottom>
-						msgr
+				<Box my={4} textAlign="center">
+					<Typography variant="h1" gutterBottom>
+						Etta
+					</Typography>
+					<Typography variant="h2">
+						An open source messenger
 					</Typography>
 					<button onClick={signin}>Sign in</button>
 				</Box>
