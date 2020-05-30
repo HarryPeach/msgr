@@ -18,6 +18,10 @@ export default function OnboardCard(props) {
 			alert("The provided name is too long, please try a shorter name.");
 			return;
 		}
+		if (name.length === 0) {
+			alert("The name field cannot be empty.");
+			return;
+		}
 		if (!name.match("^[a-zA-Z0-9 ]*$")) {
 			alert(
 				"The name provided is invalid, please use only alphanumeric characters and spaces."

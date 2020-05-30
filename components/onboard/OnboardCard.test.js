@@ -48,6 +48,23 @@ it("Does not call the onSubmit function when name is too long", () => {
 	expect(window.alert).toBeCalledWith(expect.stringContaining("too long"));
 });
 
+it("Does not call the onSubmit function when name is blank", () => {
+	const clickFn = jest.fn();
+	const wrapper = mount(<OnboardCard onSubmit={clickFn} />);
+	const button = wrapper.find(Button);
+	jest.spyOn(window, "alert").mockImplementation(() => {});
+
+	// Put a value that is longer than the max into the textbox
+	const input = wrapper.find(TextField);
+	expect(input.get(0).props.value).toBe("");
+
+	button.simulate("click");
+	expect(clickFn.mock.calls.length).toBe(0);
+	expect(window.alert).toBeCalledWith(
+		expect.stringContaining("cannot be empty")
+	);
+});
+
 it("Does not call the onSubmit function when name contains invalid characters", () => {
 	const clickFn = jest.fn();
 	const wrapper = mount(<OnboardCard onSubmit={clickFn} />);
