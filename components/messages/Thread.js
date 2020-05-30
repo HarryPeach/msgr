@@ -10,10 +10,12 @@ export default function Thread(props) {
 	return (
 		<ButtonBase className={styles.button} onClick={clickHandler}>
 			<Container maxWidth="lg" className={styles.container}>
-				<div className={styles.profile}>IMG</div>
+				<div className={styles.profile} />
 				<div className={styles.content}>
-					<Typography variant="h5">{props.name}</Typography>
-					<Typography variant="body1">{props.text}</Typography>
+					<Typography variant="h6">{props.name}</Typography>
+					<Typography variant="body1" color="textSecondary">
+						{props.text}
+					</Typography>
 				</div>
 			</Container>
 		</ButtonBase>

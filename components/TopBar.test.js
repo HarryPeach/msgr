@@ -42,7 +42,7 @@ it("Runs a provided function when its IconButton is clicked", () => {
 	const wrapper = shallow(<TopBar onClick={actionFn} />);
 	expect(actionFn.mock.calls.length).toBe(0);
 
-	const button = wrapper.find(IconButton);
+	const button = wrapper.find("#menu");
 	button.simulate("click");
 	expect(actionFn.mock.calls.length).toBe(1);
 });
@@ -50,6 +50,29 @@ it("Runs a provided function when its IconButton is clicked", () => {
 it("Ignores clicks when not provided with a handler", () => {
 	const wrapper = shallow(<TopBar />);
 
-	const button = wrapper.find(IconButton);
+	const button = wrapper.find("#menu");
 	button.simulate("click");
+});
+
+it("Shows an additonal icon when an options handler is specified", () => {
+	const wrapper = shallow(<TopBar onOptionsClick={() => {}} />);
+
+	expect(wrapper.find(IconButton).length).toBe(2);
+});
+
+it("Doesn't show an additonal icon when an options handler is not specified", () => {
+	const wrapper = shallow(<TopBar />);
+
+	expect(wrapper.find(IconButton).length).toBe(1);
+});
+
+it("Calls the options callback provided on click", () => {
+	const actionFn = jest.fn();
+	const wrapper = shallow(<TopBar onOptionsClick={actionFn} />);
+	expect(actionFn.mock.calls.length).toBe(0);
+
+	const button = wrapper.find("#options");
+	button.simulate("click");
+
+	expect(actionFn.mock.calls.length).toBe(1);
 });

@@ -1,7 +1,7 @@
 import * as Constants from "../src/constants";
 import { AppBar, Toolbar, IconButton, Typography } from "@material-ui/core";
 
-import { Menu, ArrowBack } from "@material-ui/icons";
+import { Menu, ArrowBack, MoreVert } from "@material-ui/icons";
 
 import styles from "./TopBar.module.css";
 
@@ -14,6 +14,7 @@ export default function TopBar(props) {
 		<AppBar position="sticky">
 			<Toolbar>
 				<IconButton
+					id="menu"
 					edge="start"
 					color="inherit"
 					aria-label="menu"
@@ -24,6 +25,11 @@ export default function TopBar(props) {
 				<Typography variant="h6" className={styles.title}>
 					{props.title ? props.title : Constants.APP_NAME}
 				</Typography>
+				{props.onOptionsClick && (
+					<IconButton id="options" onClick={props.onOptionsClick}>
+						<MoreVert />
+					</IconButton>
+				)}
 			</Toolbar>
 		</AppBar>
 	);
