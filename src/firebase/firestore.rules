@@ -1,6 +1,6 @@
 rules_version = '2';
 service cloud.firestore {
-  match /databases/{database}/documents {
+  match /databases/{database}/documents {  
     match /users/{userId} {
     	allow read, write: if request.auth.uid == userId;
       allow create: if request.auth.uid != null;
@@ -9,6 +9,10 @@ service cloud.firestore {
     match /conversations/{conversation} {
     	allow read, write: if request.auth.uid in resource.data.participants;
       allow create: if request.auth.uid != null;
+    }
+
+    match /conversations/{conversation=**}/messages/{message} {
+    	allow read, write, create: if request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversation)).data.participants;
     }
   }
 }
