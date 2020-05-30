@@ -66,7 +66,7 @@ function Conversation(props) {
 
 	return (
 		<div className={styles.root}>
-			<TopBar />
+			<TopBar back />
 			<Container maxWidth="md">{messages}</Container>
 			<TextBox
 				sendAction={sendMessage}

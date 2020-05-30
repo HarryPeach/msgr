@@ -36,3 +36,20 @@ it("Shows the app name when a title is not provided", () => {
 	const namedTitle = namedWrapper.find(Typography);
 	expect(namedTitle.text()).toBe("TestTitle");
 });
+
+it("Runs a provided function when its IconButton is clicked", () => {
+	const actionFn = jest.fn();
+	const wrapper = shallow(<TopBar onClick={actionFn} />);
+	expect(actionFn.mock.calls.length).toBe(0);
+
+	const button = wrapper.find(IconButton);
+	button.simulate("click");
+	expect(actionFn.mock.calls.length).toBe(1);
+});
+
+it("Ignores clicks when not provided with a handler", () => {
+	const wrapper = shallow(<TopBar />);
+
+	const button = wrapper.find(IconButton);
+	button.simulate("click");
+});

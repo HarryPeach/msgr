@@ -6,10 +6,19 @@ import { Menu, ArrowBack } from "@material-ui/icons";
 import styles from "./TopBar.module.css";
 
 export default function TopBar(props) {
+	const clickHandler = () => {
+		if (props.onClick) props.onClick();
+	};
+
 	return (
 		<AppBar position="sticky">
 			<Toolbar>
-				<IconButton edge="start" color="inherit" aria-label="menu">
+				<IconButton
+					edge="start"
+					color="inherit"
+					aria-label="menu"
+					onClick={clickHandler}
+				>
 					{props.back ? <ArrowBack /> : <Menu />}
 				</IconButton>
 				<Typography variant="h6" className={styles.title}>

@@ -11,7 +11,7 @@ export default function Message(props) {
 
 	return (
 		<>
-			<Card>
+			<Card className={styles.message} elevation={0}>
 				<CardContent className={clsx(props.right && styles.rightAlign)}>
 					<Typography variant="body1">{props.text}</Typography>
 					<Typography variant="overline" color="textSecondary">

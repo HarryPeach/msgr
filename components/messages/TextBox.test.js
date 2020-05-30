@@ -57,3 +57,10 @@ it("Correctly sets and changes the textbox value", () => {
 
 	expect(setFunc.mock.calls[0][0]).toBe("Hello");
 });
+
+it("Ignores clicks when not provided with a handler", () => {
+	const wrapper = shallow(<TextBox />);
+
+	const button = wrapper.find(IconButton);
+	button.simulate("click");
+});

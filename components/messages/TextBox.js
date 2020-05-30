@@ -5,7 +5,7 @@ import styles from "./TextBox.module.css";
 
 export default function TextBox(props) {
 	const clickHandler = () => {
-		props.sendAction();
+		if (props.sendAction) props.sendAction();
 	};
 
 	const keyPressHandler = (e) => {
