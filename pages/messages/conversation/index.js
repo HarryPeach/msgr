@@ -51,22 +51,25 @@ function Conversation(props) {
 	}, []);
 
 	const sendMessage = () => {
-		firebase
-			.firestore()
-			.collection("conversations")
-			.doc(c)
-			.collection("messages")
-			.add({
-				sender: authContext.uid,
-				text: textbox,
-				timestamp: firebase.firestore.Timestamp.now(),
-			});
+		const convRef = firebase.firestore().collection("conversations").doc(c);
+
+		convRef.collection("messages").add({
+			sender: authContext.uid,
+			text: textbox,
+			timestamp: firebase.firestore.Timestamp.now(),
+		});
+
+		convRef.update({ lastMessage: textbox });
 		setTextbox("");
+	};
+
+	const goBack = () => {
+		router.back();
 	};
 
 	return (
 		<div className={styles.root}>
-			<TopBar back />
+			<TopBar back onClick={goBack} />
 			<Container maxWidth="md">{messages}</Container>
 			<TextBox
 				sendAction={sendMessage}
