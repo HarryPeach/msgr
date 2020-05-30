@@ -26,7 +26,10 @@ export default function TopBar(props) {
 					{props.title ? props.title : Constants.APP_NAME}
 				</Typography>
 				{props.onOptionsClick && (
-					<IconButton id="options" onClick={props.onOptionsClick}>
+					<IconButton
+						id="options"
+						onClick={(e) => props.onOptionsClick(e)}
+					>
 						<MoreVert />
 					</IconButton>
 				)}
