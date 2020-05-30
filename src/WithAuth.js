@@ -25,8 +25,7 @@ function withAuth(Component) {
 							userInfo.data()?.name === undefined &&
 							router.pathname !== "/onboard"
 						) {
-							// TODO: Uncomment this when onboard page is ready
-							// router.push("/onboard");
+							router.push("/onboard");
 						}
 					});
 				} else {

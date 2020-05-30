@@ -4,6 +4,7 @@ import Head from "next/head";
 import { ThemeProvider, StylesProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "../src/theme";
+import * as Constants from "../src/constants";
 
 export default function MyApp(props) {
 	const { Component, pageProps } = props;
@@ -19,7 +20,7 @@ export default function MyApp(props) {
 	return (
 		<React.Fragment>
 			<Head>
-				<title>Untitled Messenger App</title>
+				<title>{Constants.APP_NAME}</title>
 				<meta
 					name="viewport"
 					content="minimum-scale=1, initial-scale=1, width=device-width"
