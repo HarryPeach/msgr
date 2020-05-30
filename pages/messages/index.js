@@ -21,7 +21,6 @@ function Messages() {
 			.where("participants", "array-contains", authContext.uid)
 			.get()
 			.then((doc) => {
-				// TODO: filter participants and get friendly name
 				setThreads(
 					doc.docs.map((x) => {
 						return (
@@ -30,7 +29,7 @@ function Messages() {
 								onClick={() => {
 									goToThread(x.id);
 								}}
-								name={x.data().participants[1]}
+								name={x.data().name}
 								text={x.data().lastMessage}
 							/>
 						);
