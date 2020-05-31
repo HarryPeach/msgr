@@ -47,6 +47,7 @@ export default function Messages(props) {
 				className={styles.noMessages}
 			>
 				<SentimentDissatisfied
+					id="sadIcon"
 					className={styles.icon}
 					color="disabled"
 				/>
