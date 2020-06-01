@@ -28,6 +28,7 @@ export default function TopBar(props) {
 				{props.onOptionsClick && (
 					<IconButton
 						id="options"
+						color="inherit"
 						onClick={(e) => props.onOptionsClick(e)}
 					>
 						<MoreVert />
