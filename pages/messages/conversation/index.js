@@ -7,7 +7,17 @@ import TextBox from "../../../components/messages/TextBox";
 
 import styles from "./index.module.css";
 import Messages from "../../../components/messages/Messages";
-import { Menu, MenuItem } from "@material-ui/core";
+import {
+	Menu,
+	MenuItem,
+	Dialog,
+	DialogTitle,
+	DialogContent,
+	DialogActions,
+	TextField,
+	Button,
+} from "@material-ui/core";
+import RenameDialog from "../../../components/messages/conversation/RenameDialog";
 
 function Conversation(props) {
 	const router = useRouter();
@@ -17,6 +27,7 @@ function Conversation(props) {
 	const [title, setTitle] = React.useState("");
 	const [textbox, setTextbox] = React.useState("");
 	const [anchorEl, setAnchorEl] = React.useState();
+	const [dialogRenameOpen, setDialogRenameOpen] = React.useState(false);
 
 	const bottomAnchor = React.useRef();
 
@@ -49,6 +60,10 @@ function Conversation(props) {
 		router.back();
 	};
 
+	const closeRenameDialog = () => {
+		setDialogRenameOpen(false);
+	};
+
 	return (
 		<div className={styles.root}>
 			<TopBar
@@ -70,8 +85,14 @@ function Conversation(props) {
 				open={Boolean(anchorEl)}
 				onClose={() => setAnchorEl(null)}
 			>
-				<MenuItem>Rename chat</MenuItem>
+				<MenuItem onClick={() => setDialogRenameOpen(true)}>
+					Rename chat
+				</MenuItem>
 			</Menu>
+			<RenameDialog
+				open={dialogRenameOpen}
+				setOpen={setDialogRenameOpen}
+			/>
 		</div>
 	);
 }
