@@ -36,7 +36,7 @@ it("Returns an error when the new name is too long", () => {
 	act(() => {
 		textField.props().onChange({
 			currentTarget: {
-				value: "#".repeat(64),
+				value: "a".repeat(64),
 			},
 		});
 	});
@@ -61,5 +61,5 @@ it("Returns an error when the new name is blank", () => {
 
 	const button = wrapper.find("#submitButton").at(0);
 	button.simulate("click");
-	expect(window.alert).toBeCalledWith(expect.stringContaining("too long"));
+	expect(window.alert).toBeCalledWith(expect.stringContaining("empty"));
 });

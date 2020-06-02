@@ -12,19 +12,17 @@ export default function RenameDialog(props) {
 
 	const renameChat = (newName) => {
 		if (!newName.match("^[a-zA-Z0-9 ]*$")) {
-			if (newName.length >= 64) {
-				alert(
-					"The provided name is too long, please try a shorter name."
-				);
-				return;
-			}
-			if (newName.length === 0) {
-				alert("The name field cannot be empty.");
-				return;
-			}
 			alert(
 				"The name provided is invalid, please use only alphanumeric characters and spaces."
 			);
+			return;
+		}
+		if (newName.length >= 64) {
+			alert("The provided name is too long, please try a shorter name.");
+			return;
+		}
+		if (newName.length === 0) {
+			alert("The name field cannot be empty.");
 			return;
 		}
 		// TODO: Send request to rename chat
