@@ -21,18 +21,20 @@ export default function Messages(props) {
 			.onSnapshot((doc) => {
 				setMessages(
 					doc.docs.map((x) => {
-						return (
-							<Message
-								key={x.id}
-								text={x.data().text}
-								timestamp={
-									x.data().timestamp.seconds +
-									"" +
-									x.data().timestamp.nanoseconds
-								}
-								right={x.data().sender === props.uid}
-							/>
-						);
+						if (x.data().type === "text") {
+							return (
+								<Message
+									key={x.id}
+									text={x.data().text}
+									timestamp={
+										x.data().timestamp.seconds +
+										"" +
+										x.data().timestamp.nanoseconds
+									}
+									right={x.data().sender === props.uid}
+								/>
+							);
+						}
 					})
 				);
 				scroll.scrollToBottom();

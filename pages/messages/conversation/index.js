@@ -39,6 +39,7 @@ function Conversation(props) {
 		const convRef = firebase.firestore().collection("conversations").doc(c);
 
 		convRef.collection("messages").add({
+			type: "text",
 			sender: authContext.uid,
 			text: textbox,
 			timestamp: firebase.firestore.Timestamp.now(),
