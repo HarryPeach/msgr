@@ -19,7 +19,7 @@ it("Can render without timestamp", () => {
 
 it("Right aligns when provided the prop", () => {
 	const wrapperRight = shallow(<Message right />);
-	expect(wrapperRight.find(CardContent).get(0).props.className).toBe(
+	expect(wrapperRight.find(CardContent).get(0).props.className).toContain(
 		"rightAlign"
 	);
 
