@@ -1,3 +1,5 @@
+import firebase from "../../../lib/firebase";
+
 import {
 	Button,
 	Dialog,
@@ -25,8 +27,16 @@ export default function RenameDialog(props) {
 			alert("The name field cannot be empty.");
 			return;
 		}
-		// TODO: Send request to rename chat
-		alert("Debug: Renaming chat to: " + newName);
+		// alert("Debug: Renaming chat to: " + newName);
+		firebase
+			.firestore()
+			.collection("conversations")
+			.doc(props.docId)
+			.update({
+				name: newName,
+			});
+		props.setOpen(false);
+		if (props.onComplete) props.onComplete();
 	};
 
 	return (
@@ -35,6 +45,8 @@ export default function RenameDialog(props) {
 			<DialogContent>
 				<TextField
 					id="renameTextField"
+					placeholder={props.currentName}
+					defaultValue={props.currentName}
 					value={textFieldRename}
 					onChange={(e) => setTextFieldRename(e.currentTarget.value)}
 				/>

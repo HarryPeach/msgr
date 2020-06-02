@@ -63,3 +63,5 @@ it("Returns an error when the new name is blank", () => {
 	button.simulate("click");
 	expect(window.alert).toBeCalledWith(expect.stringContaining("empty"));
 });
+
+// TODO: test props.onComplete

@@ -32,15 +32,7 @@ function Conversation(props) {
 	const bottomAnchor = React.useRef();
 
 	React.useEffect(() => {
-		firebase
-			.firestore()
-			.collection("conversations")
-			.doc(c)
-			.get()
-			.then((doc) => {
-				setTitle(doc.data().name);
-			})
-			.catch(console.error);
+		getTitle();
 	}, []);
 
 	const sendMessage = () => {
@@ -56,12 +48,20 @@ function Conversation(props) {
 		setTextbox("");
 	};
 
-	const goBack = () => {
-		router.back();
+	const getTitle = () => {
+		firebase
+			.firestore()
+			.collection("conversations")
+			.doc(c)
+			.get()
+			.then((doc) => {
+				setTitle(doc.data().name);
+			})
+			.catch(console.error);
 	};
 
-	const closeRenameDialog = () => {
-		setDialogRenameOpen(false);
+	const goBack = () => {
+		router.back();
 	};
 
 	return (
@@ -92,6 +92,12 @@ function Conversation(props) {
 			<RenameDialog
 				open={dialogRenameOpen}
 				setOpen={setDialogRenameOpen}
+				docId={c}
+				currentName={title}
+				onComplete={() => {
+					getTitle();
+					setAnchorEl(null);
+				}}
 			/>
 		</div>
 	);
