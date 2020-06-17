@@ -2,7 +2,12 @@
 	text-align: right;
 }
 
+.base {
+	width: 100%;
+}
+
 .message {
+	width: 100%;
 	padding: 10px 10px 0 0;
 	position: relative;
 }

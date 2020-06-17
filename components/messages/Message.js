@@ -1,3 +1,4 @@
+import React from "react";
 import { Card, Typography, CardContent, ButtonBase } from "@material-ui/core";
 import { MoreVert } from "@material-ui/icons";
 
@@ -24,6 +25,7 @@ export default function Message(props) {
 	return (
 		<>
 			<ButtonBase
+				className={styles.base}
 				component="div"
 				onTouchStart={handleButtonPress}
 				onTouchEnd={handleButtonRelease}
