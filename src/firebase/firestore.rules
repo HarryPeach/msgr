@@ -13,6 +13,7 @@ service cloud.firestore {
 
     match /conversations/{conversation=**}/messages/{message} {
     	allow read, write, create: if request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversation)).data.participants;
+      allow delete: if request.auth.uid == get(/databases/$(database)/documents/conversations/$(conversation)/messages/$(message)).data.sender;
     }
   }
 }

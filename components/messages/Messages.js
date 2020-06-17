@@ -34,6 +34,8 @@ export default function Messages(props) {
 									right={x.data().sender === props.uid}
 								/>
 							);
+						} else if (x.data().type === "deleted") {
+							return <Message key={x.id} deleted />;
 						}
 					})
 				);
