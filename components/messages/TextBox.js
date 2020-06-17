@@ -1,3 +1,4 @@
+import React from "react";
 import { Paper, IconButton, InputBase, Divider } from "@material-ui/core";
 import { Send } from "@material-ui/icons";
 

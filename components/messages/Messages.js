@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { animateScroll as scroll } from "react-scroll";
 import { Container, Typography } from "@material-ui/core";
 import { SentimentDissatisfied } from "@material-ui/icons";
