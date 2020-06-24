@@ -25,6 +25,7 @@ export default function Messages(props) {
 							return (
 								<Message
 									key={x.id}
+									id={x.id}
 									text={x.data().text}
 									timestamp={
 										x.data().timestamp.seconds +

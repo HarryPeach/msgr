@@ -18,22 +18,50 @@ export default function Message(props) {
 	const timeoutRef = React.useRef();
 	const [dialogOpen, setDialogOpen] = React.useState(false);
 
+	/**
+	 * Called to close all dialogs on the screen
+	 */
 	const handleDialogClose = () => {
 		setDialogOpen(false);
 	};
 
+	/**
+	 * Formats the javascript timestamp into a nice readable date
+	 * @param {string} t The timestamp to format
+	 */
 	const formatTimestamp = (t) => {
 		if (!t) return "";
 		return new Date(parseInt(t.replace(/0+$/, ""))).toUTCString();
 	};
 
+	/**
+	 * Called when the button is pressed, calls long press if appropriate
+	 */
 	const handleButtonPress = () => {
-		// TODO: Implement Button Long Press Action
-		timeoutRef.current = setTimeout(() => setDialogOpen(true), 1000);
+		timeoutRef.current = setTimeout(() => onButtonLongPress(), 1000);
 	};
 
+	/**
+	 * Called when the button is long-pressed
+	 */
+	const onButtonLongPress = () => {
+		setDialogOpen(true);
+	};
+
+	/**
+	 * Called when the message press is released
+	 */
 	const handleButtonRelease = () => {
 		clearTimeout(timeoutRef.current);
+	};
+
+	/**
+	 * Deletes a message from the server
+	 * @param {string} messageID The ID of the message to be deleted
+	 */
+	const deleteMessage = (messageID) => {
+		// TODO: Stub function
+		console.log(`Deleting message with ID: ${messageID}`);
 	};
 
 	return (
@@ -82,7 +110,10 @@ export default function Message(props) {
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleDialogClose}>No</Button>
-					<Button color="primary" onClick={handleDialogClose}>
+					<Button
+						color="primary"
+						onClick={() => deleteMessage(props.id)}
+					>
 						Yes
 					</Button>
 				</DialogActions>
