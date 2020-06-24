@@ -1,12 +1,26 @@
 import React from "react";
-import { Card, Typography, CardContent, ButtonBase } from "@material-ui/core";
-import { MoreVert } from "@material-ui/icons";
+import {
+	Card,
+	Typography,
+	CardContent,
+	ButtonBase,
+	Dialog,
+	DialogTitle,
+	DialogContent,
+	DialogActions,
+	Button,
+} from "@material-ui/core";
 
 import styles from "./Message.module.css";
 import clsx from "clsx";
 
 export default function Message(props) {
 	const timeoutRef = React.useRef();
+	const [dialogOpen, setDialogOpen] = React.useState(false);
+
+	const handleDialogClose = () => {
+		setDialogOpen(false);
+	};
 
 	const formatTimestamp = (t) => {
 		if (!t) return "";
@@ -15,7 +29,7 @@ export default function Message(props) {
 
 	const handleButtonPress = () => {
 		// TODO: Implement Button Long Press Action
-		timeoutRef.current = setTimeout(() => alert("Long press"), 1000);
+		timeoutRef.current = setTimeout(() => setDialogOpen(true), 1000);
 	};
 
 	const handleButtonRelease = () => {
@@ -60,6 +74,19 @@ export default function Message(props) {
 					</CardContent>
 				</Card>
 			</ButtonBase>
+			{/* TODO: Test dialog */}
+			<Dialog onClose={handleDialogClose} open={dialogOpen}>
+				<DialogTitle>Delete Message</DialogTitle>
+				<DialogContent>
+					Do you want to delete this message?
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleDialogClose}>No</Button>
+					<Button color="primary" onClick={handleDialogClose}>
+						Yes
+					</Button>
+				</DialogActions>
+			</Dialog>
 		</>
 	);
 }

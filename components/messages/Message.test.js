@@ -9,12 +9,12 @@ Enzyme.configure({ adapter: new Adapter() });
 
 it("Renders timestamps correctly", () => {
 	const wrapper = shallow(<Message timestamp="1590681646606000000" />);
-	expect(wrapper.text()).toBe("Thu, 28 May 2020 16:00:46 GMT");
+	expect(wrapper.text()).toContain("Thu, 28 May 2020 16:00:46 GMT");
 });
 
 it("Can render without timestamp", () => {
 	const wrapper = shallow(<Message text="Hey there!" />);
-	expect(wrapper.text()).toBe("Hey there!");
+	expect(wrapper.text()).toContain("Hey there!");
 });
 
 it("Right aligns when provided the prop", () => {
