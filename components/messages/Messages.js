@@ -26,6 +26,7 @@ export default function Messages(props) {
 								<Message
 									key={x.id}
 									id={x.id}
+									chatID={props.chat}
 									text={x.data().text}
 									timestamp={
 										x.data().timestamp.seconds +
@@ -36,7 +37,13 @@ export default function Messages(props) {
 								/>
 							);
 						} else if (x.data().type === "deleted") {
-							return <Message key={x.id} deleted />;
+							return (
+								<Message
+									key={x.id}
+									deleted
+									right={x.data().sender === props.uid}
+								/>
+							);
 						}
 					})
 				);

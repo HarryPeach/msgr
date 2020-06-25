@@ -10,9 +10,10 @@ import {
 	DialogActions,
 	Button,
 } from "@material-ui/core";
-
-import styles from "./Message.module.css";
 import clsx from "clsx";
+
+import firebase from "../../lib/firebase";
+import styles from "./Message.module.css";
 
 export default function Message(props) {
 	const timeoutRef = React.useRef();
@@ -61,7 +62,17 @@ export default function Message(props) {
 	 */
 	const deleteMessage = (messageID) => {
 		// TODO: Stub function
-		console.log(`Deleting message with ID: ${messageID}`);
+		// console.log(`Deleting message with ID: ${messageID}`);
+		firebase
+			.firestore()
+			.collection("conversations")
+			.doc(props.chatID)
+			.collection("messages")
+			.doc(messageID)
+			.update({
+				text: "",
+				type: "deleted",
+			});
 	};
 
 	return (
