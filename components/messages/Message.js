@@ -39,6 +39,7 @@ export default function Message(props) {
 	 * Called when the button is pressed, calls long press if appropriate
 	 */
 	const handleButtonPress = () => {
+		if (props.deleted) return;
 		timeoutRef.current = setTimeout(() => onButtonLongPress(), 1000);
 	};
 
@@ -61,8 +62,6 @@ export default function Message(props) {
 	 * @param {string} messageID The ID of the message to be deleted
 	 */
 	const deleteMessage = (messageID) => {
-		// TODO: Stub function
-		// console.log(`Deleting message with ID: ${messageID}`);
 		firebase
 			.firestore()
 			.collection("conversations")
@@ -73,6 +72,7 @@ export default function Message(props) {
 				text: "",
 				type: "deleted",
 			});
+		handleDialogClose();
 	};
 
 	return (
@@ -98,18 +98,18 @@ export default function Message(props) {
 								Deleted message
 							</Typography>
 						) : (
-							<>
-								<Typography variant="body1">
-									{props.text}
-								</Typography>
-								<Typography
-									variant="overline"
-									color="textSecondary"
-								>
-									{formatTimestamp(props.timestamp)}
-								</Typography>
-							</>
-						)}
+								<>
+									<Typography variant="body1">
+										{props.text}
+									</Typography>
+									<Typography
+										variant="overline"
+										color="textSecondary"
+									>
+										{formatTimestamp(props.timestamp)}
+									</Typography>
+								</>
+							)}
 					</CardContent>
 				</Card>
 			</ButtonBase>
